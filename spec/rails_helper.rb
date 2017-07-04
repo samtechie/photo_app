@@ -25,7 +25,6 @@ require 'rspec/rails'
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 require 'spec_helper'
-require 'rspec/rails'
 require 'capybara/rspec'
 require 'simple_bdd'
 require 'shoulda/matchers'
@@ -76,6 +75,11 @@ RSpec.configure do |config|
 		    with.library :rails
 		  end
 		end
+
+    config.include Warden::Test::Helpers
+  config.before :suite do
+    Warden.test_mode!
+  end
   config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.
